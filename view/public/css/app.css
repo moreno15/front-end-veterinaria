@@ -1,0 +1,46 @@
+
+input,.custom-file label{
+  border-radius: 0px !important;
+}
+
+.btn-success{
+  background: #8C0092 !important;
+  color:#fff !important;
+  border: 1px solid #8C0092 !important;
+}
+.nav-item a{
+  display: block;
+  color: #fff;
+}
+.input-group-text{
+  background: #fff !important;
+}
+ .content-wrapper{
+   background:#fff !important;
+ }
+
+.content-header .row{
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding-bottom: 10px !important;
+}
+
+.navbar-purple,.widget-user-header,.bg-purple{
+  background: #8C0092 !important;
+  border: 1px solid #8C0092 !important;
+}
+.sidebar-dark-purple .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-purple .nav-sidebar > .nav-item > .nav-link.active,.nav-item > .nav-link.active2{
+  background: #8C0092 !important;
+  color: #fff;
+}
+.dtr-details{
+  width: 100% !important;
+}
+/*
+ .p-title:hover{
+   display: block !important;
+   color: #f50 !important;
+ }
+
+.card-terceary:hover  .p-title{
+ color: #f50 !important;
+}*/

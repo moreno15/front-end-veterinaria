@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8mb4" collation="utf8mb4_general_ci">dbveterinaria</database>
+</source>
+<canvas zoom="90">
+<tables>
+<table name="articulo" view="colnames">
+<left>1495</left>
+<top>0</top>
+<width>162</width>
+<height>144</height>
+<sql_create_table>CREATE TABLE `articulo` (
+  `id_articulo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_articulo` text DEFAULT NULL,
+  `precio` decimal(11,2) DEFAULT NULL,
+  `stock` int(11) DEFAULT NULL,
+  `id_subcategoria_articulo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_articulo`),
+  KEY `fk_subcategoria_articulo` (`id_subcategoria_articulo`),
+  CONSTRAINT `fk_subcategoria_articulo` FOREIGN KEY (`id_subcategoria_articulo`) REFERENCES `subcategoria` (`id_subcategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="caducidad" view="colnames">
+<left>1837</left>
+<top>10</top>
+<width>152</width>
+<height>131</height>
+<sql_create_table>CREATE TABLE `caducidad` (
+  `id_caducidad` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_emision` date DEFAULT NULL,
+  `fecha_caducidad` date DEFAULT NULL,
+  `id_articulo_caducidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_caducidad`),
+  KEY `fk_articulo_caducidad` (`id_articulo_caducidad`),
+  CONSTRAINT `fk_articulo_caducidad` FOREIGN KEY (`id_articulo_caducidad`) REFERENCES `articulo` (`id_articulo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="categoria" view="colnames">
+<left>2061</left>
+<top>167</top>
+<width>135</width>
+<height>121</height>
+<sql_create_table>CREATE TABLE `categoria` (
+  `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_categoria` text DEFAULT NULL,
+  `lista_categoria` text DEFAULT NULL,
+  PRIMARY KEY (`id_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="citas" view="colnames">
+<left>216</left>
+<top>37</top>
+<width>105</width>
+<height>223</height>
+<sql_create_table>CREATE TABLE `citas` (
+  `id_citas` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_cita` date DEFAULT NULL,
+  `hora_cita` text DEFAULT NULL,
+  `cliente_cita` text DEFAULT NULL,
+  `servicio_cita` text DEFAULT NULL,
+  `estado` text DEFAULT NULL,
+  `id_paciente` int(11) DEFAULT NULL,
+  `id_servicio` int(11) DEFAULT NULL,
+  `send_sms` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id_citas`),
+  KEY `fk_servicio_citas` (`id_servicio`),
+  KEY `fk_paciente_cita` (`id_paciente`),
+  CONSTRAINT `fk_paciente_cita` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`),
+  CONSTRAINT `fk_servicio_citas` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id_consulta`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="cliente" view="colnames">
+<left>145</left>
+<top>458</top>
+<width>127</width>
+<height>177</height>
+<sql_create_table>CREATE TABLE `cliente` (
+  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_cliente` text DEFAULT NULL,
+  `apellido_cliente` text DEFAULT NULL,
+  `telefono_cliente` text DEFAULT NULL,
+  `direccion_cliente` text DEFAULT NULL,
+  `dni_cliente` text DEFAULT NULL,
+  `email_cliente` text DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="especie" view="colnames">
+<left>52</left>
+<top>260</top>
+<width>126</width>
+<height>116</height>
+<sql_create_table>CREATE TABLE `especie` (
+  `id_especie` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_especie` text DEFAULT NULL,
+  `descr_especie` text DEFAULT NULL,
+  PRIMARY KEY (`id_especie`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="historia" view="colnames">
+<left>774</left>
+<top>541</top>
+<width>144</width>
+<height>130</height>
+<sql_create_table>CREATE TABLE `historia` (
+  `id_historia` int(11) NOT NULL AUTO_INCREMENT,
+  `numero_historia` int(5) DEFAULT NULL,
+  `id_paciente_historia` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_historia`),
+  KEY `fk_paciente_historia` (`id_paciente_historia`),
+  CONSTRAINT `fk_paciente_historia` FOREIGN KEY (`id_paciente_historia`) REFERENCES `paciente` (`id_paciente`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="paciente" view="colnames">
+<left>520</left>
+<top>286</top>
+<width>158</width>
+<height>208</height>
+<sql_create_table>CREATE TABLE `paciente` (
+  `id_paciente` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_paciente` text DEFAULT NULL,
+  `sexo_paciente` text DEFAULT NULL,
+  `color_paciente` text DEFAULT NULL,
+  `id_raza_paciente` int(11) DEFAULT NULL,
+  `esterilizado` text DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `foto_paciente` text DEFAULT NULL,
+  `id_cliente_paciente` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_paciente`),
+  KEY `fk_cliente_paciente` (`id_cliente_paciente`),
+  KEY `fk_raza_paciente` (`id_raza_paciente`),
+  CONSTRAINT `fk_cliente_paciente` FOREIGN KEY (`id_cliente_paciente`) REFERENCES `cliente` (`id_cliente`),
+  CONSTRAINT `fk_raza_paciente` FOREIGN KEY (`id_raza_paciente`) REFERENCES `raza` (`id_raza`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="raza" view="colnames">
+<left>300</left>
+<top>297</top>
+<width>124</width>
+<height>116</height>
+<sql_create_table>CREATE TABLE `raza` (
+  `id_raza` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_raza` text DEFAULT NULL,
+  `id_especie_raza` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_raza`),
+  KEY `fk_especie_raza` (`id_especie_raza`),
+  CONSTRAINT `fk_especie_raza` FOREIGN KEY (`id_especie_raza`) REFERENCES `especie` (`id_especie`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="servicio" view="colnames">
+<left>22</left>
+<top>67</top>
+<width>106</width>
+<height>101</height>
+<sql_create_table>CREATE TABLE `servicio` (
+  `id_consulta` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_servicio` text DEFAULT NULL,
+  PRIMARY KEY (`id_consulta`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="subcategoria" view="colnames">
+<left>1826</left>
+<top>237</top>
+<width>173</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `subcategoria` (
+  `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_subcategoria` text DEFAULT NULL,
+  `lista_subcategoria` text DEFAULT NULL,
+  `id_categoria_subcategoria` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_subcategoria`),
+  KEY `fk_categoria_subcategoria` (`id_categoria_subcategoria`),
+  CONSTRAINT `fk_categoria_subcategoria` FOREIGN KEY (`id_categoria_subcategoria`) REFERENCES `categoria` (`id_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="detalle_grooming" view="colnames">
+<left>375</left>
+<top>31</top>
+<width>155</width>
+<height>101</height>
+<sql_create_table>CREATE TABLE `detalle_grooming` (
+  `id_deta_grooming` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_grooming` text DEFAULT NULL,
+  `id_grooming` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_deta_grooming`),
+  KEY `fk_grooming_servicio` (`id_grooming`),
+  CONSTRAINT `fk_grooming_servicio` FOREIGN KEY (`id_grooming`) REFERENCES `grooming` (`id_grooming`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="grooming" view="colnames">
+<left>594</left>
+<top>29</top>
+<width>131</width>
+<height>150</height>
+<sql_create_table>CREATE TABLE `grooming` (
+  `id_grooming` int(11) NOT NULL AUTO_INCREMENT,
+  `id_paciente` int(11) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT NULL,
+  `estado` text DEFAULT NULL,
+  PRIMARY KEY (`id_grooming`),
+  KEY `fk_paciente_grooming` (`id_paciente`),
+  CONSTRAINT `fk_paciente_grooming` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="incidencia" view="colnames">
+<left>1713</left>
+<top>617</top>
+<width>104</width>
+<height>99</height>
+<sql_create_table>CREATE TABLE `incidencia` (
+  `id_incidencia` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` text DEFAULT NULL,
+  PRIMARY KEY (`id_incidencia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="internamiento" view="colnames">
+<left>1117</left>
+<top>478</top>
+<width>194</width>
+<height>191</height>
+<sql_create_table>CREATE TABLE `internamiento` (
+  `id_internamiento` int(11) NOT NULL AUTO_INCREMENT,
+  `id_veterinario` int(11) DEFAULT NULL,
+  `fecha_internamiento` date DEFAULT NULL,
+  `motivo_internamiento` text DEFAULT NULL,
+  `fecha_alta` date DEFAULT NULL,
+  `hora_alta` text DEFAULT NULL,
+  `otros` text DEFAULT NULL,
+  `alimentacion` text DEFAULT NULL,
+  `id_historia_internamiento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_internamiento`),
+  KEY `fk_historia_internamiento` (`id_historia_internamiento`),
+  KEY `fk_veterinario_internamiento` (`id_veterinario`),
+  CONSTRAINT `fk_historia_internamiento` FOREIGN KEY (`id_historia_internamiento`) REFERENCES `historia` (`id_historia`),
+  CONSTRAINT `fk_veterinario_internamiento` FOREIGN KEY (`id_veterinario`) REFERENCES `veterinario` (`id_veterinario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="internamiento_incidencia" view="colnames">
+<left>1430</left>
+<top>503</top>
+<width>230</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `internamiento_incidencia` (
+  `id_internamiento_incidencia` int(11) NOT NULL AUTO_INCREMENT,
+  `id_internamiento_inter_incid` int(11) DEFAULT NULL,
+  `id_incidencia_inter_incid` int(11) DEFAULT NULL,
+  `nota` text DEFAULT NULL,
+  `fecha_registro` date DEFAULT NULL,
+  `hora_ragistro` time DEFAULT NULL,
+  PRIMARY KEY (`id_internamiento_incidencia`),
+  KEY `fk_internamiento_internamiento_inci` (`id_internamiento_inter_incid`),
+  KEY `fk_incidencia_internami_inciden` (`id_incidencia_inter_incid`),
+  CONSTRAINT `fk_incidencia_internami_inciden` FOREIGN KEY (`id_incidencia_inter_incid`) REFERENCES `incidencia` (`id_incidencia`),
+  CONSTRAINT `fk_internamiento_internamiento_inci` FOREIGN KEY (`id_internamiento_inter_incid`) REFERENCES `internamiento` (`id_internamiento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="tratamiento" view="colnames">
+<left>1308</left>
+<top>207</top>
+<width>180</width>
+<height>200</height>
+<sql_create_table>CREATE TABLE `tratamiento` (
+  `id_tratamiento` int(11) NOT NULL AUTO_INCREMENT,
+  `id_articulo_tratamiento` int(11) DEFAULT NULL,
+  `dosis` decimal(11,2) DEFAULT NULL,
+  `fecha_tratamiento` date DEFAULT NULL,
+  `hora_tratamiento` text DEFAULT NULL,
+  `id_via_dosis` int(11) DEFAULT NULL,
+  `id_internamiento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_tratamiento`),
+  KEY `fk_id_via_dosis` (`id_via_dosis`),
+  KEY `fk_articulo_tratamiento` (`id_articulo_tratamiento`),
+  KEY `fk_internamiento_tratamiento` (`id_internamiento`),
+  CONSTRAINT `fk_articulo_tratamiento` FOREIGN KEY (`id_articulo_tratamiento`) REFERENCES `articulo` (`id_articulo`),
+  CONSTRAINT `fk_id_via_dosis` FOREIGN KEY (`id_articulo_tratamiento`) REFERENCES `via` (`id_via`),
+  CONSTRAINT `fk_internamiento_tratamiento` FOREIGN KEY (`id_internamiento`) REFERENCES `internamiento` (`id_internamiento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="consulta" view="colnames">
+<left>435</left>
+<top>709</top>
+<width>140</width>
+<height>256</height>
+<sql_create_table>CREATE TABLE `consulta` (
+  `id_consulta` int(11) NOT NULL AUTO_INCREMENT,
+  `id_historia_consulta` int(11) DEFAULT NULL,
+  `motivo_consulta` text DEFAULT NULL,
+  `anamnesis` text DEFAULT NULL,
+  `fecha_consulta` date DEFAULT NULL,
+  `examen_clinico` text DEFAULT NULL,
+  `dx_presuntivo` text DEFAULT NULL,
+  `analisis_req` text DEFAULT NULL,
+  `estudio_imagen` text DEFAULT NULL,
+  `analisis_clinico` text DEFAULT NULL,
+  `tratamiento_clinico` text DEFAULT NULL,
+  `tratamiento_casa` text DEFAULT NULL,
+  `otros` text DEFAULT NULL,
+  PRIMARY KEY (`id_consulta`),
+  KEY `fk_historia_consulta` (`id_historia_consulta`),
+  CONSTRAINT `fk_historia_consulta` FOREIGN KEY (`id_historia_consulta`) REFERENCES `historia` (`id_historia`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="evaluacion_fisica" view="colnames">
+<left>774</left>
+<top>686</top>
+<width>189</width>
+<height>302</height>
+<sql_create_table>CREATE TABLE `evaluacion_fisica` (
+  `id_evaluacion` int(11) NOT NULL AUTO_INCREMENT,
+  `temperatura` text DEFAULT NULL,
+  `frec_cardiaca` text DEFAULT NULL,
+  `pulso` text DEFAULT NULL,
+  `frec_respiratoria` text DEFAULT NULL,
+  `peso` text DEFAULT NULL,
+  `conciencia` text DEFAULT NULL,
+  `mucosa` text DEFAULT NULL,
+  `condicion_corporal` text DEFAULT NULL,
+  `ltc` text DEFAULT NULL,
+  `ptje_dsh` text DEFAULT NULL,
+  `ccia` text DEFAULT NULL,
+  `llenado_capilar` text DEFAULT NULL,
+  `fecha_evaluacion` date DEFAULT NULL,
+  `hora_evaluacion` text DEFAULT NULL,
+  `id_consulta` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_evaluacion`),
+  KEY `fk_consulta_evaluacion` (`id_consulta`),
+  CONSTRAINT `fk_consulta_evaluacion` FOREIGN KEY (`id_consulta`) REFERENCES `consulta` (`id_consulta`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="via" view="colnames">
+<left>1548</left>
+<top>345</top>
+<width>128</width>
+<height>104</height>
+<sql_create_table>CREATE TABLE `via` (
+  `id_via` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` text DEFAULT NULL,
+  PRIMARY KEY (`id_via`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="antecedente" view="colnames">
+<left>425</left>
+<top>516</top>
+<width>168</width>
+<height>131</height>
+<sql_create_table>CREATE TABLE `antecedente` (
+  `id_antecedente` int(11) NOT NULL AUTO_INCREMENT,
+  `id_historia_antecedente` int(11) DEFAULT NULL,
+  `tipo_antecedente` text DEFAULT NULL,
+  `descripcion_antecedente` text DEFAULT NULL,
+  PRIMARY KEY (`id_antecedente`),
+  KEY `fk_historia_antecedente` (`id_historia_antecedente`),
+  CONSTRAINT `fk_historia_antecedente` FOREIGN KEY (`id_historia_antecedente`) REFERENCES `historia` (`id_historia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC</sql_create_table>
+</table>
+<table name="ususario" view="colnames">
+<left>1952</left>
+<top>633</top>
+<width>163</width>
+<height>254</height>
+<sql_create_table>CREATE TABLE `ususario` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_usuario` text DEFAULT NULL,
+  `email_usuario` text DEFAULT NULL,
+  `user_usuario` text DEFAULT NULL,
+  `password_usuario` text DEFAULT NULL,
+  `telefono_usuario` text DEFAULT NULL,
+  `direccion_usuario` text DEFAULT NULL,
+  `verificacion_usuario` text DEFAULT NULL,
+  `token_usuario` text DEFAULT NULL,
+  `token_exp_usuario` text DEFAULT NULL,
+  `fecha_creacion_usuario` date DEFAULT NULL,
+  `fecha_actu_usuario` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="veterinario" view="colnames">
+<left>968</left>
+<top>194</top>
+<width>203</width>
+<height>153</height>
+<sql_create_table>CREATE TABLE `veterinario` (
+  `id_veterinario` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_veterinario` text DEFAULT NULL,
+  `dni_veterinario` text DEFAULT NULL,
+  `fecha_creacion_veterinario` date DEFAULT NULL,
+  `fecha_actu_veterinario` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_veterinario`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="vacuna" view="colnames">
+<left>734</left>
+<top>21</top>
+<width>135</width>
+<height>396</height>
+<sql_create_table>CREATE TABLE `vacuna` (
+  `id_vacuna` int(11) NOT NULL AUTO_INCREMENT,
+  `parvovirus` varchar(1) DEFAULT NULL,
+  `coronavirus` varchar(1) DEFAULT NULL,
+  `distemper` varchar(1) DEFAULT NULL,
+  `hepatitis` varchar(1) DEFAULT NULL,
+  `parainflueza` varchar(1) DEFAULT NULL,
+  `l_canicola` varchar(1) DEFAULT NULL,
+  `l_icterohaemorrag` varchar(1) DEFAULT NULL,
+  `l_grippotyphosa` varchar(1) DEFAULT NULL,
+  `l_pomona` varchar(1) DEFAULT NULL,
+  `rabia` varchar(1) DEFAULT NULL,
+  `rinotraqueitis` varchar(1) DEFAULT NULL,
+  `panleucopenia` varchar(1) DEFAULT NULL,
+  `calcivirus` varchar(1) DEFAULT NULL,
+  `fecha_programada` date DEFAULT NULL,
+  `fecha_aplicada` date DEFAULT NULL,
+  `id_veterinario_vacuna` int(11) DEFAULT NULL,
+  `id_historia` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_vacuna`),
+  KEY `fk_historia_vacuna` (`id_historia`),
+  KEY `fk_veterinario_vacuna` (`id_veterinario_vacuna`),
+  CONSTRAINT `fk_historia_vacuna` FOREIGN KEY (`id_historia`) REFERENCES `historia` (`id_historia`),
+  CONSTRAINT `fk_veterinario_vacuna` FOREIGN KEY (`id_veterinario_vacuna`) REFERENCES `veterinario` (`id_veterinario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="control" view="colnames">
+<left>1263</left>
+<top>721</top>
+<width>128</width>
+<height>177</height>
+<sql_create_table>CREATE TABLE `control` (
+  `id_control` int(11) NOT NULL AUTO_INCREMENT,
+  `temperatura` text DEFAULT NULL,
+  `frecuencia_card` text DEFAULT NULL,
+  `frecuencia_resp` text DEFAULT NULL,
+  `fecha_control` date DEFAULT NULL,
+  `hora_control` text DEFAULT NULL,
+  `id_internamiento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_control`),
+  KEY `fk_internamiento_control` (`id_internamiento`),
+  CONSTRAINT `fk_internamiento_control` FOREIGN KEY (`id_internamiento`) REFERENCES `internamiento` (`id_internamiento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="vacuna_medicamento" view="colnames">
+<left>1081</left>
+<top>21</top>
+<width>158</width>
+<height>122</height>
+<sql_create_table>CREATE TABLE `vacuna_medicamento` (
+  `id_vacuna_medic` int(11) NOT NULL AUTO_INCREMENT,
+  `id_vacuna` int(11) DEFAULT NULL,
+  `id_articulo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_vacuna_medic`),
+  KEY `fk_vacuna_articulo` (`id_articulo`),
+  KEY `fk_vacunca_vacuna` (`id_vacuna`),
+  CONSTRAINT `fk_vacuna_articulo` FOREIGN KEY (`id_articulo`) REFERENCES `articulo` (`id_articulo`),
+  CONSTRAINT `fk_vacunca_vacuna` FOREIGN KEY (`id_vacuna`) REFERENCES `vacuna` (`id_vacuna`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

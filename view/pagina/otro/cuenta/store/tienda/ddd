@@ -1,0 +1,45 @@
+<?php
+
+  if( $urlParams[0] == "store"){
+
+
+      $select = "id_store";
+
+      $url = CurlController::api()."stores?linkTo=id_user_store&equalTo=".$_SESSION["user"]->id_user."&select=".$select;
+      $method = "GET";
+      $fields = array();
+      $header = array();
+
+      $response = CurlController::request($url, $method, $fields, $header);
+
+      if($response->status == 404){
+        if (isset($urlParams[2])) {
+          if ($urlParams[2]==null) {
+           $urlParams[1] = "new-store";
+         }else{
+           $urlParams[1] = "404";
+         }
+
+        }else{
+          $urlParams[1] = "new-store";
+        }
+      }
+
+    if ($response->status == 200 && isset($urlParams[1])) {
+      if (isset($_GET["product"])&& $_GET["product"]=="new") {
+         include $urlParams[1].'/product.php';
+      }else{
+        include $urlParams[1].'/tienda.php';
+      }
+
+    }else{
+      include $urlParams[1].'/'.$urlParams[1].".php";
+    }
+
+
+}
+
+
+
+
+ ?>

@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^6.2",
+        "mercadopago/dx-php": "2.2.1",
+        "brainfoolong/cryptojs-aes-php": "^2.1"
+    }
+}

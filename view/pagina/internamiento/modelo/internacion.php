@@ -18,6 +18,9 @@ if ($dataInternamiento->status==200) {
   $url3 = CurlController::api()."cliente?select=*&linkTo=id_cliente&equalTo=".$dataPaciente[0]->id_cliente_paciente ;
   $dataCliente= CurlController::request($url3, $method, $fields, $header)->results;
 
+  $url4 = CurlController::api()."veterinario?select=*&linkTo=id_veterinario&equalTo=".$internamiento[0]->id_veterinario ;
+  $dataVeterinario= CurlController::request($url4, $method, $fields, $header)->results;
+
   $fecha_internamiento=date_create($internamiento[0]->fecha_internamiento);
   $fecha_alta=date_create($internamiento[0]->fecha_alta);
 
@@ -25,10 +28,10 @@ if ($dataInternamiento->status==200) {
  $fecha_alt = strtotime($internamiento[0]->fecha_alta);
 
   if($fecha_actual >= $fecha_alt) {
-    $color="red";
+    $color="blue";
 
 	}else {
-		 $color="blue";
+		 $color="red";
 	}
 
 }else{
@@ -57,10 +60,7 @@ if ($dataInternamiento->status==200) {
                       <label>MOTIVO INTERNAMIENTO:</label>
                       <span  ><?php echo strtoupper( $internamiento[0]->motivo_internamiento) ?></span>
                     </div>
-                    <div class="col-lg-4 m-0 p-0">
-                      <label>CLIENTE:</label>
-                      <span  ><?php echo  strtoupper($dataCliente[0]->nombre_cliente." ".$dataCliente[0]->apellido_cliente)  ?></span>
-                    </div>
+
                     <div class="col-lg-4 m-0 p-0">
                       <label>ALIMENTACIÓN:</label>
                       <span  ><?php echo  strtoupper($internamiento[0]->alimentacion) ?></span>
@@ -70,13 +70,24 @@ if ($dataInternamiento->status==200) {
                       <span  ><?php echo  strtoupper($internamiento[0]->otros)  ?></span>
                     </div>
                     <div class="col-lg-4 m-0 p-0">
-                      <label>FECHA INTERNACÓN:</label>
+                      <label>FECHA INTERNACIÓN:</label>
                       <span  ><?php echo  date_format($fecha_internamiento,"d/m/Y")  ?></span>
                     </div>
                     <div class="col-lg-4 m-0 p-0">
                       <label>FECHA ALTA:</label>
                       <span style="color:<?=$color ?> "><?php echo   date_format($fecha_alta,"d/m/Y").' '.$internamiento[0]->hora_alta  ?></span>
                     </div>
+                    <div class="col-lg-4 m-0 p-0">
+                      <label>CLIENTE:</label>
+                      <span  ><?php echo  strtoupper($dataCliente[0]->nombre_cliente." ".$dataCliente[0]->apellido_cliente)  ?></span>
+                    </div>
+                    <div class="col-lg-12 m-0 p-0">
+                      <hr>
+                      <label>MEDICO VETERINARIO A CARGO: </label>
+                      <span ><?php  echo strtoupper($dataVeterinario[0]->nombre_veterinario)  ?></span>
+                    </div>
+
+
 
                   </div>
 
@@ -88,7 +99,10 @@ if ($dataInternamiento->status==200) {
 </div>
 
 <div class="col-lg-12">
-  <form class="form ">
+  <input type="hidden" id="tipo2"  value="tratamiento">
+  <input type="hidden" id="tipo3"  value="evaluacion">
+  <input type="hidden" id="tipo4"  value="incidencia">
+  <input type="hidden" id="id_internacion" value="<?=trim($urlParams[2])?>">  
    <?php
        include 'tratamiento.php';
        include 'evaluacion.php';
@@ -96,6 +110,5 @@ if ($dataInternamiento->status==200) {
 
 
     ?>
-    </form>
 
 </div>

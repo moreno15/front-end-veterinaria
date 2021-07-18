@@ -1,12 +1,6 @@
 <?php  		date_default_timezone_set("America/Lima"); ?>
 <div class="content-wrapper" style="min-height: 1071.31px;">
-  <div id="menuCapa"  class="dropdown-menu" role="menu" style="">
-        <a class="dropdown-item"  style="cursor:pointer" onclick="contexMenu(),dataTable('cl-paciente')"  data-toggle="modal" data-target="#md-buscar-cita"  href="#">Buscar Cita</a>
-        <a class="dropdown-item"   style="cursor:pointer"  onclick="contexMenu(),dataTable('cl-paciente2')"   data-toggle="modal" data-target="#md-buscar-paciente" >Buscar Paciente</a>
-        <a class="dropdown-item" style="cursor:pointer"  href="#">Something else here</a>
-        <div class="dropdown-divider" style="cursor:pointer" ></div>
-        <a class="dropdown-item"  style="cursor:pointer" href="#">Separated link</a>
-    </div>
+  
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -29,68 +23,26 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <?php if (count($urlParams)==2): ?>
-          <?php if (empty($urlParams[1])): ?>
-                <?php $urlParams[1]="listado-visita" ?>
-          <?php endif; ?>
-          <?php else: ?>
-            <?php $urlParams[1]="listado-visita" ?>
-        <?php endif; ?>
-
-        <?php if ($urlParams[1]==="listado-visita"): ?>
-          <div class="col-md-12 col-sm-12 col-12 "  >
-                  <div class="info-box shadow">
-                        <span class="info-box-icon "> <i class="fa fa-file-text-o shadow" style="font-size:50px;color:#480088 "></i>  </span>
-
-                        <div class="info-box-content " >
-                          <div class="row">
-                            <div class="col-lg-9">
-
-                            </div>
-                            <div class="col-lg-3">
-                                  <a  href="<?php echo $path."visitas/reg-visita" ?>" class="btn btn-success btn-flat">Registrar Nueva Visita</a>
-                            </div>
-
-                          </div>
-
-                        </div>
-                        <!-- /.info-box-content -->
-                  </div>
-                      <!-- /.info-box -->
-           </div>
-         <?php endif; ?>
+        <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
+        <input type="hidden" id="tipo" name="" value="visitas">
 
 
-        <div class="row">
-          <div class="col-md-12">
-              <div class="card  ">
-                <div class="card-header p-0 pt-0">
-                      <?php if ($urlParams[1]=="reg-visita"): ?>
-                              <h3>   <a  href="<?php echo $path."visitas/listado-visita" ?>" class="btn btn-outline-primary  btn-sm ml-3"> <span class="fa  fa-arrow-left"></span> ir listado Visita</a> Registrar Nueva Visita</h3>
-                      <?php else: ?>
-                            <h2>Listado de Visitas</h2>
-                       <?php endif; ?>
-                </div>
-                <div class="card-body">
-                  <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
-                  <input type="hidden" id="urlApi" value="<?= CurlController::api() ?>">
-                  <input type="hidden" id="tipo" name="" value="visitas">
-                  <?php if ($urlParams[1]=="reg-visita"): ?>
-                          <?php include 'modelo/registrar-visita.php'; ?>
 
-                  <?php else: ?>
-                    <?php include 'modelo/lista-visitas.php'; ?>
-                   <?php endif; ?>
+                  <?php
+                  if (isset($urlParams[1])) {
+                      if ($urlParams[1]=="reg-visita") {
+                           include 'modelo/registrar-visita.php';
+                      }else if($urlParams[1]=="listado-visita"||$urlParams[1]==""){
+                        include 'modelo/lista-visitas.php';
+                      }else if($urlParams[1]=="edit-visita"||$urlParams[1]==""){
+                          include 'modelo/edit-visita.php';
+                        }
+                    }else{
+                      include 'modelo/lista-visitas.php';
+                    }
 
+                  ?>
 
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
       </div><!-- /.container-fluid -->
 
 

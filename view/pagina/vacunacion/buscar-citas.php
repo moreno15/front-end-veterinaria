@@ -8,7 +8,7 @@
               </button>
             </div>
             <form class="form-horizontal">
-            <div class="modal-body data-content  table-responsive">
+            <div class="modal-body  table-responsive">
              <table class="table dt-server "  style="width:100%">
                <thead>
                  <th>#</th>

@@ -35,6 +35,9 @@ input,.custom-file label{
 .dtr-details{
   width: 100% !important;
 }
+.data-content .dataTables_filter,.data-content .dataTables_length ,.data-content .dataTables_info{
+  display: none;;
+}
 /*
  .p-title:hover{
    display: block !important;

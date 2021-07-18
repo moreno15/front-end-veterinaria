@@ -51,7 +51,7 @@ class TemplateController{
 
 			$mail->isMail();
 
-			$mail->setFrom("support@marketplace.com", "Marketplace Support");
+			$mail->setFrom("support@sacristobal.com", "Clinica San Cristobal Support");
 
 			$mail->Subject = "Hi ".$name." - ".$subject;
 
@@ -65,13 +65,7 @@ class TemplateController{
 
 					<p>'.$message.'</p>
 
-					<a href="'.$url.'">Click this link for more information</a>
-
-					If you didn’t ask to verify this address, you can ignore this email.
-
-					Thanks,
-
-					Your Marketplace Team
+					<a href="'.$url.'"> Verificar cuenta
 
 				</div>
 

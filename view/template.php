@@ -12,7 +12,10 @@ if(strpos($_SERVER['REQUEST_URI'], "?") == false) {
   }
 }
 
+
  ?>
+
+
 <!-- https://adminlte.io/themes/v3/pages/calendar.html template -->
  <!DOCTYPE html>
  <html lang="es">
@@ -81,36 +84,60 @@ if(strpos($_SERVER['REQUEST_URI'], "?") == false) {
 	<div class="wrapper" >
 				<!-- Header-->
 		    <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
-		    <?php include 'modulo/header.php'; ?>
+		    <?php
+				if (isset($_SESSION["user"])) {
+					$time = time();
+
+			    if($_SESSION["user"]->token_exp_usuario < $time){
+
+			        echo '<script>
+
+			            fncSweetAlert(
+			                "error",
+			                "Error: el Token de acceso ha caducado",
+			                "'.$path.'logout"
+			            );
+
+			        </script>';
+
+			        return;
+
+			    }else {
+
+						include 'modulo/header.php';
 
 
-				<!--=====================================
-				Pages
-				======================================-->
+						if ($urlParams[0]=="cliente") {
+							 include 'pagina/cliente/cliente.php';
+					 }else if($urlParams[0]=="paciente"){
+							include 'pagina/paciente/paciente.php';
+					 }else if($urlParams[0]=="citas"){
+							 include 'pagina/citas/citas.php';
+					 }else if($urlParams[0]=="visitas"){
+								 include 'pagina/visita/visita.php';
+					 }else if($urlParams[0]=="grooming"){
+							 include 'pagina/grooming/grooming.php';
+					 }else if($urlParams[0]=="vacunacion"){
+								 include 'pagina/vacunacion/vacunacion.php';
+					 }else if($urlParams[0]=="internamiento"){
+								 include 'pagina/internamiento/internamiento.php';
+					}else if($urlParams[0]=="logout"){
+										 include 'pagina/login/logout.php';
+					 }else {
+							 include 'pagina/inicio/inicio.php';
+					 }
+					 include 'modulo/footer.php';
 
-			<?php
+			    }
 
-			 if ($urlParams[0]=="cliente") {
-			    include 'pagina/cliente/cliente.php';
-			}else if($urlParams[0]=="paciente"){
-				 include 'pagina/paciente/paciente.php';
-			}else if($urlParams[0]=="citas"){
-					include 'pagina/citas/citas.php';
-			}else if($urlParams[0]=="visitas"){
-						include 'pagina/visita/visita.php';
-			}else if($urlParams[0]=="grooming"){
-					include 'pagina/grooming/grooming.php';
-			}else if($urlParams[0]=="internacion"){
-						include 'pagina/internamiento/internamiento.php';
-			}else {
-				  include 'pagina/inicio/inicio.php';
-			}
+
+				}else {
+						include 'pagina/login/login.php';
+				}
+
 
 
 			?>
-
-
-<?php include 'modulo/footer.php'; ?>
 	</div>
 		<!-- ./wrapper -->
 	  <!-- REQUIRED SCRIPTS -->
@@ -127,7 +154,8 @@ if(strpos($_SERVER['REQUEST_URI'], "?") == false) {
 	  <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	  <script src="public/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 	  <script src="public/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	  <!--<script src="public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+
+	  <script src="public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 	  <script src="public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 	  <script src="public/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 	  <script src="public/plugins/jszip/jszip.min.js"></script>
@@ -135,7 +163,7 @@ if(strpos($_SERVER['REQUEST_URI'], "?") == false) {
 	  <script src="public/plugins/pdfmake/vfs_fonts.js"></script>
 	  <script src="public/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 	  <script src="public/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-	  <script src="public/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>-->
+	  <script src="public/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 	  <!-- AdminLTE -->
 	  <script src="public/dist/js/adminlte.js"></script>
 
@@ -199,7 +227,7 @@ if(strpos($_SERVER['REQUEST_URI'], "?") == false) {
 				});
 
 			$(document).bind("contextmenu", function(e){
-				 return true;
+				 return false;
 			});
 		</script>
 	  </body>

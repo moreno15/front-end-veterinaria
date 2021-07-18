@@ -8,7 +8,7 @@
 
                   </div>
                   <div class="col-lg-3">
-                        <a  href="<?php echo $path."internacion/reg-internacion" ?>" class="btn btn-success btn-flat">Iniciar Nueva Internación</a>
+                        <a  href="<?php echo $path."internamiento/reg-internacion" ?>" class="btn btn-success btn-flat">Iniciar Nueva Internación</a>
                   </div>
 
                 </div>
@@ -28,7 +28,7 @@
 
          </div>
          <div class="card-body">
-
+           <input type="hidden" id="tipo"  value="internamiento">
                 <table class="table dt-responsive  dt-internamiento" style="width:100%">
 
                     <thead  >
@@ -37,6 +37,7 @@
 
                             <th>#</th>
                             <th>Accion</th>
+                            <th>Cliente</th>
 
                              <th>Paciente</th>
 

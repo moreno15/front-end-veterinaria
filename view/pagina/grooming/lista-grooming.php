@@ -11,7 +11,7 @@
 
                     <th>#</th>
                     <th>Accion</th>
-
+                     <th>Fecha Reg.</th>
                      <th>Cliente</th>
 
                      <th>Paciente</th>
@@ -19,7 +19,7 @@
                      <th>Servicio</th>
                      <th>Esado</th>
                      <th>Descripcion</th>
-                     <th>Fecha Reg.</th>
+
 
 
 

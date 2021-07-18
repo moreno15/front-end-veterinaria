@@ -1,11 +1,5 @@
 <div class="content-wrapper" >
-  <div id="menuCapa"  class="dropdown-menu" role="menu" style="">
-        <a class="dropdown-item"  style="cursor:pointer" onclick="contexMenu(),dataTable('cl-paciente')"  data-toggle="modal" data-target="#md-buscar-cita"  href="#">Buscar Cita</a>
-        <a class="dropdown-item"   style="cursor:pointer"  onclick="contexMenu(),dataTable('cl-paciente2')"   data-toggle="modal" data-target="#md-buscar-paciente" >Buscar Paciente</a>
-        <a class="dropdown-item" style="cursor:pointer"  href="#">Something else here</a>
-        <div class="dropdown-divider" style="cursor:pointer" ></div>
-        <a class="dropdown-item"  style="cursor:pointer" href="#">Separated link</a>
-    </div>
+
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -26,8 +20,7 @@
 
     <!-- Main content -->
     <section class="content"  style="height:3000px">
-      <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
-      <input type="hidden" id="urlApi" value="<?= CurlController::api() ?>">
+      <input type="hidden" id="path" value="<?= TemplateController::path() ?>"> 
       <input type="hidden" id="tipo" value="grooming">
       <div class="container-fluid">
         <div class="row">

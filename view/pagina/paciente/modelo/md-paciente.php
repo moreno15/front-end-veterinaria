@@ -1,4 +1,4 @@
-<div class="modal fade show" id="modal-default"  >
+<div class="modal fade"  id="modal-paciente" >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -7,37 +7,50 @@
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <form class="form-horizontal" method="post">
+            <form class="form-horizontal"  method="post" enctype="multipart/form-data" >
                 <div class="modal-body  ">
                   <div class="row pt-0 mt-0">
                     <div class="col-md-12 pt-0 mt-0">
 
                             <div class="form-group row">
-                              <label for="" class="col-sm-3 col-form-label">Dueño</label>
+                              <label for="" class="col-sm-3 col-form-label">Dueño <span style="color:red">*</span></label>
                               <div class="col-sm-9">
                                 <div class="input-group   ">
-                                    <input type="hidden"  value="1" name="id_cliente" id="id_cliente" class="form-control form-control-sm">
-                                    <input type="text" readonly name="nombre_cliente" id="nombre_cliente" class="form-control form-control-sm">
-                                    <span class="input-group-append">
-                                      <button type="button" class="btn btn-info btn-flat btn-sm"  >Buscar</button>
-                                    </span>
+
+                                    <select  class="form-control form-control-sm  select2  " required   name="id_cliente" id="id_cliente" style="width:100%">
+                                      <?php
+                                      $url = CurlController::api()."cliente?&select=*";
+                                      $method = "GET";
+                                      $fields = array();
+                                      $header = array();
+
+                                      $dataCliente= CurlController::request($url, $method, $fields, $header)->results;
+
+                                        ?>
+                                      <option value="" >Seleccione</option>
+                                      <?php foreach ($dataCliente as $key => $value): ?>
+                                            <option value="<?php echo trim($value->id_cliente) ?>"> <?php echo $value->nombre_cliente." ".$value->apellido_cliente ?></option>
+                                      <?php endforeach; ?>
+                                    </select>
+
                                   </div>
                               </div>
                             </div>
                                 <div class="form-group row">
-                                  <label for="" class="col-sm-3 col-form-label">Nombre</label>
+                                  <label for="" class="col-sm-3 col-form-label">Nombre paciente <span style="color:red">*</span> </label>
                                   <div class="col-sm-9">
-                                    <input type="text" name="nombre_paciente" class="form-control form-control-sm"   >
+                                    <input type="hidden"  name="id_paciente" id="id_paciente" class="form-control form-control-sm">
+                                    <input type="text" name="nombre_paciente" id="nombre_paciente" class="form-control form-control-sm" required  >
                                   </div>
                                 </div>
 
                                   <div class="row pl-0 ml-0">
                                     <div class="col-lg-7 pl-0 ml-0"  >
                                       <div class="form-group ">
-                                        <label  class="col-sm-5 col-form-label " style="float:left">Sexo</label>
+                                        <label  class="col-sm-5 col-form-label " style="float:left">Sexo <span style="color:red">*</span></label>
                                         <div class="col-sm-7" style="float:left">
-                                          <select class="form-control form-control-sm" name="sexo_paciente">
-                                            <option value="">Selecciones</option>
+                                          <select class="form-control form-control-sm" name="sexo_paciente" id="sexo_paciente" required>
+                                            <option value=" ">Selecciones</option>
                                             <option value="Hembra">Hembra</option>
                                             <option value="Macho">Macho</option>
                                           </select>
@@ -48,7 +61,7 @@
                                       <div class="form-group ">
                                         <label for="" class="col-sm-3 col-form-label " style="float:left">Color</label>
                                         <div class="col-sm-9" style="float:left">
-                                          <input type="text" name="color_paciente" class="form-control form-control-sm"  >
+                                          <input type="text" name="color_paciente" id="color_paciente" class="form-control form-control-sm"  >
                                         </div>
                                       </div>
                                     </div>
@@ -56,9 +69,9 @@
                                 <div class="row">
                                   <div class="col-lg-7"  >
                                     <div class="form-group ">
-                                      <label for="" class="col-sm-5 col-form-label" style="float:left">Especie</label>
+                                      <label for="" class="col-sm-5 col-form-label" style="float:left">Especie <span style="color:red">*</span></label>
                                       <div class="col-sm-7" style="float:left">
-                                        <select class="form-control form-control-sm" name="especie">
+                                        <select class="form-control form-control-sm" name="especie" id="especie" required>
                                           <option value="">Selecciones</option>
                                           <option value="1">Canino</option>
                                           <option value="2">Felino</option>
@@ -68,9 +81,9 @@
                                   </div>
                                   <div class="col-lg-5" >
                                     <div class="form-group ">
-                                      <label for="" class="col-sm-3 col-form-label" style="float:left">Raza</label>
+                                      <label for="" class="col-sm-3 col-form-label" style="float:left">Raza <span style="color:red">*</span></label>
                                       <div class="col-sm-9" style="float:left">
-                                        <select class="form-control form-control-sm" name="raza">
+                                        <select class="form-control form-control-sm" name="raza" id="raza" required>
                                           <option value="">Selecciones</option>
                                           <option value="1">Bichon Bolos</option>
                                           <option value="2">Bichon Maltos</option>
@@ -81,15 +94,16 @@
                                 </div>
 
                                 <div class="form-group row">
-                                  <label for="" class="col-sm-3 col-form-label">Fecha Naci.</label>
+                                  <label for="" class="col-sm-3 col-form-label">Fecha Naci. <span style="color:red">*</span></label>
                                   <div class="col-sm-9">
-                                    <input type="date" name="fecha_nacimiento" class="form-control form-control-sm"  >
+                                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control form-control-sm"  required >
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="" class="col-sm-3 col-form-label">Esterelizado</label>
                                   <div class="col-sm-9">
-                                    <select class="form-control form-control-sm" name="esterelizado">
+                                    <select class="form-control form-control-sm" name="esterelizado" id="esterilizado">
+                                      <option value=" ">Selecciones</option>
                                       <option value="0">No</option>
                                       <option value="1">Si</option>
                                     </select>
@@ -115,7 +129,7 @@
                                             accept="image/*"
                                             maxSize="2000000"
                                             onchange="validateImageJS(event, 'changeImagePaciente')"
-                                            required>
+                                            >
 
                                             <div class="valid-feedback">Valid.</div>
                                             <div class="invalid-feedback">Please fill out this field.</div>

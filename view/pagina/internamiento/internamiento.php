@@ -25,7 +25,7 @@
 
         <div class="col-lg-12">
           <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
-          <input type="hidden" id="tipo"  value="internamiento">
+
 
         <?php
         		date_default_timezone_set("America/Lima");
@@ -35,7 +35,7 @@
             include 'modelo/registrar-internacion.php';
         }else if ($urlParams[1]=="listado-internacion") {
             include 'modelo/lista-internacion.php';
-        }else if ($urlParams[1]=="datelle-internacion") {
+        }else if ($urlParams[1]=="detalle-internacion") {
               include 'modelo/internacion.php';
 
         }else{

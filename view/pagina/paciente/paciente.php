@@ -1,12 +1,10 @@
-<div class="content-wrapper" style="height:3000px">
+<div class="content-wrapper" >
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Paciente <button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default">
-                  Registrar Paciente
-                </button></h1>
+            <h1>Paciente </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -19,16 +17,34 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-      <input type="hidden" id="urlapiruc" value="https://dniruc.apisperu.com/api/v1/">
+    <section class="content" style="height:3000px">
       <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
-      <input type="hidden" id="tipo" value="paciente">
+
       <div class="container-fluid">
+        <div class="row">
 
-        <?php include 'modelo/md-paciente.php'; ?>
-     <?php include "modelo/lista-paciente.php" ?>
+        <?php
+           date_default_timezone_set("America/Lima");
+        if (isset($urlParams[1])) {
+
+              if ($urlParams[1]=="historia-clinica") {
+                include "modelo/historia-clinica.php"  ;
+              }else{
+                  include 'modelo/lista-paciente.php';
+                   include 'modelo/md-paciente.php';
+            }
+        }else{
+
+          include 'modelo/lista-paciente.php';
+           include 'modelo/md-paciente.php';
+        }
+
+         ?>
+       <?php ?>
 
 
+
+        </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

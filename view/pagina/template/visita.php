@@ -1,14 +1,4 @@
-<?php
-$url = CurlController::api()."citas?select=*&linkTo=estado&equalTo=pendiente";
-$method = "GET";
-$fields = array();
-$header = array();
 
-
-$dataEvento = CurlController::request($url, $method, $fields, $header)->results;
-
-
- ?>
 <div class="content-wrapper" style="min-height: 1071.31px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -46,7 +36,7 @@ $dataEvento = CurlController::request($url, $method, $fields, $header)->results;
               <!-- /.card -->
           </div>
           <!-- /.col -->
-          <div class="col-md-9"> 
+          <div class="col-md-9">
               <div class="card card-primary">
                 <div class="card-body  ">
 
@@ -62,9 +52,6 @@ $dataEvento = CurlController::request($url, $method, $fields, $header)->results;
 
 
     </section>
-    <?php include 'buscar-cliente.php'; ?>
     <!-- /.content -->
   </div>
-<script type="text/javascript">
-
-</script>
+ 

@@ -1,39 +1,34 @@
-<div class="row">
+
+  <!-- /.col -->
   <div class="col-md-12">
-    <div class="card ">
-      <div class="card-body table-responsive ">
+    <div class="card card-primary">
+      <div class="card-body data-content p-0">
+        <input type="hidden" name="tipoCita" id="tipoCita" value="cl-paciente">
+             <!-- THE CALENDAR -->
 
-        <table class="table  dt-server" style="width:100%">
-
-            <thead  >
-
-                <tr>
-
-                    <th>#</th>
-                    <th>Accion</th>
-
-                     <th>Foto</th>
-
+             <div class="row">
+               <div class="col-md-12">
+                 <table class="table dt-citas "  style="width:100%">
+                   <thead>
+                     <th>#</th>
+                     <th>accion</th>
+                     <th>Cliente</th>
+                     <th>Telefono</th>
                      <th>Paciente</th>
+                     <th>Servicio</th>
+                     <th>Fecha Cita</th>
+                     <th>Sms</th>
+                   </thead>
+                 </table>
+                  <!-- /.card -->
+                </div>
+               </div>
+               <!-- /.col -->
+             </div>
 
-                     <th>Edad</th>
-
-                     <th>Fecha Naci.</th>
-
-                     <th>Sexo</th>
-
-                    <th>Esterelizado</th>
-
-
-                </tr>
-
-            </thead>
-
-        </table>
-
-     </div>
-     <!-- /.card -->
-   </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
   </div>
   <!-- /.col -->
-</div>

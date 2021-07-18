@@ -12,16 +12,23 @@
               <div class="card-body">
                 <form class="form " method="post">
                   <div class="row">
+                    <div class="col-sm-12">
+                       <!-- text input -->
+                       <div class="form-group">
+                         <label>Cliente <span style="color:red">*</span></label>
+                          <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control form-control-sm" readonly required>
+                       </div>
+                     </div>
 
-                    <div class="col-sm-4">
-                     <label>Paciente</label>
+                    <div class="col-sm-3">
+                     <label>Paciente <span style="color:red">*</span></label>
                       <div class="col-sm-12  mb-3 pl-0 ml-0">
                          <div class="input-group  ">
                            <input type="hidden" name="id_historia" id="id_historia" value="">
                              <input type="hidden" name="idpaciente" id="idpaciente" class="form-control form-control-sm">
-                             <input type="text" name="nombre_paciente" id="nombre_paciente" class="form-control form-control-sm" readonly>
+                             <input type="text" name="nombre_paciente" id="nombre_paciente" class="form-control form-control-sm" readonly required>
                              <span class="input-group-append">
-                               <button type="button" class="btn btn-info btn-flat btn-sm" onclick="dataTable('cl-paciente2')" data-toggle="modal" data-target="#md-buscar-paciente" >Buscar Paciente</button>
+                               <button type="button" class="btn btn-info btn-flat btn-sm" onclick="dataTable('cl-paciente2')" data-toggle="modal" data-target="#md-buscar-paciente" > <span class="fa fa-search"></span> Paciente</button>
                              </span>
                        </div>
                      </div>
@@ -30,8 +37,8 @@
                     <div class="col-sm-3">
                        <!-- text input -->
                        <div class="form-group">
-                         <label>Fecha Internamiento</label>
-                          <input type="date" class="form-control form-control-sm" name="fecha_internamiento" value="" >
+                         <label>Fecha Internamiento <span style="color:red">*</span></label>
+                          <input type="date" class="form-control form-control-sm" name="fecha_internamiento" value="" required>
                        </div>
                      </div>
                      <div class="col-sm-3">
@@ -73,18 +80,33 @@
                        <div class="col-sm-4">
                           <!-- text input -->
                           <div class="form-group">
-                            <label>Veterinario</label>
-                              <select class="form-control form-control-sm" name="id_veterinario">
+                            <label>Veterinario tratante <span style="color:red">*</span> </label>
+                            <select class="form-control form-control-sm " name="id_veterinario" required>
+                              <?php
+                              $url = CurlController::api()."veterinario?&select=*";
+                              $method = "GET";
+                              $fields = array();
+                              $header = array();
+
+                              $dataVterinario= CurlController::request($url, $method, $fields, $header)->results;
+
+                                ?>
                                 <option value="">Seleccione</option>
-                                <option value="1-vetrinario">veterinario 01</option>
-                              </select>
+                              <?php foreach ($dataVterinario as $key => $value): ?>
+                                <?php if ($value->id_veterinario!=1): ?>
+                                          <option value="<?php echo trim($value->id_veterinario) ?>"> <?php echo $value->nombre_veterinario ?></option>
+                                <?php endif; ?>
+
+                              <?php endforeach; ?>
+                            </select>
+
                           </div>
                         </div>
 
                   </div>
 
-                  <?php $citas=new TableController();
-                        $citas->registerInternamiento();
+                  <?php $internamiento=new TableController();
+                        $internamiento->registerInternamiento();
 
                    ?>
                   <div class="col-sm-2"  style="float:right">

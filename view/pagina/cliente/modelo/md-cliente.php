@@ -9,17 +9,17 @@
               </button>
             </div>
           <form class="form-cliente"    method="post">
-            <input type="hidden"  name="id_cliente" value="">
             <div class="modal-body">
               <div class="row">
 
                 <div class="col-sm-12">
-                  <label>Dni</label>
+                  <label>Dni <span style="color:red">*</span></label>
                    <div class="col-sm-12  mb-3 pl-0 ml-0">
                   <div class="input-group  ">
-                      <input type="text" name="dni_cliente" id="dni_cliente" class="form-control form-control-sm">
+                    <input type="hidden" name="id_cliente" id="id_cliente" >
+                      <input type="text" name="dni_cliente" id="dni_cliente" class="form-control form-control-sm" required>
                       <span class="input-group-append">
-                        <button type="button" class="btn btn-info btn-flat btn-sm" onclick="buscarDni()">Buscar(RENIEC)</button>
+                        <button type="button" class="btn btn-info btn-flat btn-sm" onclick="buscarDni()">Buscar(RENIEC) </button>
                       </span>
                     </div>
                   </div>
@@ -27,15 +27,15 @@
                 <div class="col-sm-6">
                    <!-- text input -->
                    <div class="form-group">
-                     <label>Nombre</label>
-                     <input type="text"  name="nombre_cliente" id="nombre_cliente" class="form-control form-control-sm" >
+                     <label>Nombre <span style="color:red">*</span></label>
+                     <input type="text"  name="nombre_cliente" id="nombre_cliente" class="form-control form-control-sm" required >
                    </div>
                  </div>
                  <div class="col-sm-6">
                     <!-- text input -->
                     <div class="form-group">
-                      <label>Apellido</label>
-                      <input type="text"  name="apellido_cliente" id="apellido_cliente" class="form-control form-control-sm" >
+                      <label>Apellido <span style="color:red">*</span></label>
+                      <input type="text"  name="apellido_cliente" id="apellido_cliente" class="form-control form-control-sm" required >
                     </div>
                   </div>
                   <div class="col-sm-6">

@@ -26,13 +26,13 @@
                         </tr>
                         <tr>
 
-                          <td> <input type="text" class="form-control form-control-sm" name="temperatura" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="frec_cardiaca" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="pulso" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="frec_respiratoria" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="peso" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="conciencia" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="mucosa" value=""> </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="temperatura"  > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="frec_cardiaca" > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="pulso"  > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="frec_respiratoria" > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="peso" > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="conciencia" > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="mucosa"  > </td>
                         </tr>
                         <tr>
                             <th>COND.CORP.</th>
@@ -44,15 +44,15 @@
                           <th>HORA EVAL.</th>
                         </tr>
                         <tr>
-                          <td> <input type="text" class="form-control form-control-sm" name="condicion_corporal" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="ltc" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="ptje_dsh" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="ccia" value=""> </td>
-                          <td> <input type="text" class="form-control form-control-sm" name="llenado_capilar" value=""> </td>
-                          <td> <input type="date" class="form-control form-control-sm" name="fecha_evaluacion" value=""> </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="condicion_corporal"  > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="ltc"  > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="ptje_dsh"  > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="ccia" > </td>
+                          <td> <input type="text" class="form-control form-control-sm" name="llenado_capilar"  > </td>
+                          <td> <input type="date" class="form-control form-control-sm" name="fecha_evaluacion"  > </td>
                           <td>
                             <div class="input-group date" id="timepicker" data-target-input="nearest">
-                              <input type="text" class="form-control form-control-sm datetimepicker-input" name="hora_evauacion"    data-target="#timepicker"/>
+                              <input type="text" class="form-control form-control-sm datetimepicker-input" name="hora_evaluacion"     data-target="#timepicker"/>
                               <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="far fa-clock"></i></div>
                               </div>

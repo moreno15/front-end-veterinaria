@@ -1,22 +1,20 @@
-<div class="modal fade show" id="md-buscar-cita"  >
+<div class="modal fade show" id="md-buscar-paciente"  >
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Citas Recervados</h4>
+              <h4 class="modal-title">Listado de pacientes</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <form class="form-horizontal">
-            <div class="modal-body data-content  table-responsive">
-             <table class="table dt-server "  style="width:100%">
+            <div class="modal-body  table-responsive">
+             <table class="table dt-server2 "  style="width:100%">
                <thead>
                  <th>#</th>
                  <th>accion</th>
                  <th>Cliente</th>
                  <th>Paciente</th>
-                 <th>Servicio</th>
-                 <th>Fecha Cita</th>
                </thead>
              </table>
             </div>

@@ -9,62 +9,88 @@ $dataEvento = CurlController::request($url, $method, $fields, $header)->results;
 
 
  ?>
-<div class="content-wrapper" style="min-height: 1071.31px;">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Registrar Citas </h1>
-            <div class="col-lg-12 mt-3">
-              <div class="row">
-                    <div class=" external-event" style="background:#6F5802;color:#fff;font-size:11px" >Grooming</div>
-                    <div class=" external-event" style="background:#C70039;color:#fff;font-size:11px" >Internación</div>
-                    <div class=" external-event" style="background:#FE6E2A;color:#fff;font-size:11px" >Consulta</div>
+ <div class="row">
+   <div class="col-md-3">
+       <div class="card">
+         <div class="card-body">
+           <form class="form" method="post">
+             <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
 
-                    <div class="  external-event"  style="background:#026F26;color:#fff;font-size:11px">Vacunacion</div>
-                    <div class="  external-event"  style="background:#022D6F;color:#fff;font-size:11px">Cirugia</div>
-                    <div id="external-events">
-                    </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Calendar</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+             <div class="row">
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-md-12">
-            <div class="card card-primary">
-              <div class="card-body p-0">
-                     <!-- THE CALENDAR -->
-                       <div id="calendar"></div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
+               <!-- the events -->
+               <div id="external-events">
+                   <label for="">Fecha Cita <span style="color:red">*</span> </label>
+                   <input type="date" class="form-control form-control-sm" name="fecha_cita" required >
+                   <label for="">Hora Cita <span style="color:red">*</span></label>
+                   <div class="input-group date" id="timepicker" data-target-input="nearest">
+                     <input type="text" class="form-control form-control-sm datetimepicker-input" name="hora_cita" required    data-target="#timepicker"/>
+                     <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                         <div class="input-group-text"><i class="far fa-clock"></i></div>
+                     </div>
+                     </div>
+                   <label for="">Tipo Servicio <span style="color:red">*</span></label>
+                    <select  class="form-control form-control-sm" name="id_servicio" required>
+                      <option value="">Selecione</option>
+                      <option value="1-Grooming">Grooming</option>
+                      <option value="2-Consulta">Consulta </option>
+                      <option value="3-Vacunacion">Vacunacion</option>
+                      <option value="4-Desparacitación">Desparacitación</option>
+                      <option value="5-Cirugia">Cirugia</option>
+                    </select>
+                      <label>Cliente <span style="color:red">*</span> </label>
+                     <div class="col-sm-12  mb-3 pl-0 ml-0">
+                          <div class="input-group  ">
+                            <input type="hidden" name="idpaciente" id="idpaciente" readonly class="form-control form-control-sm">
+                              <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control form-control-sm" readonly required>
+                              <span class="input-group-append">
+                                <button type="button" class="btn btn-info btn-flat btn-sm" onclick="dataTable('cl-paciente2')"  data-toggle="modal" data-target="#md-buscar-cliente">Buscar</button>
+                              </span>
+                            </div>
+                     </div>
+                     <?php $citas=new TableController();
+                           $citas->registerCitas();
 
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+                      ?>
+                     <button type="submit" style="width:100%" class="btn btn-success btn-flat" name="button">Guardar</button>
+               </div>
+               <div class="col-lg-12 mt-3">
+                 <div class="row">
+                   <div class="col-lg-6">
+                       <div class=" external-event" style="background:#6F5802;color:#fff;font-size:11px" >Grooming</div>
+                       <div class=" external-event" style="background:#C70039;color:#fff;font-size:11px" >Internación</div>
+                       <div class=" external-event" style="background:#F0F718;color:#fff;font-size:11px" >Consulta</div>
+                   </div>
+                   <div class="col-lg-6">
+                     <div class="  external-event"  style="background:#026F26;color:#fff;font-size:11px">Vacunacion</div>
+                     <div class="  external-event"  style="background:#022D6F;color:#fff;font-size:11px">Cirugia</div>
+                   </div>
+
+                 </div>
+               </div>
 
 
-    </section>
-
-    <!-- /.content -->
-  </div>
+             </div><!--row -->
+           </form>
+         </div>
+         <!-- /.card-body -->
+       </div>
+       <!-- /.card -->
+   </div>
+   <!-- /.col -->
+   <div class="col-md-9">
+     <div class="card card-primary">
+       <div class="card-body p-0">
+              <!-- THE CALENDAR -->
+                <div id="calendar"></div>
+       </div>
+       <!-- /.card-body -->
+     </div>
+     <!-- /.card -->
+   </div>
+   <!-- /.col -->
+ </div>
+ <?php include 'buscar-cliente.php'; ?>
 <script type="text/javascript">
 
  $(function () {
@@ -196,7 +222,7 @@ $dataEvento = CurlController::request($url, $method, $fields, $header)->results;
                     $color="#6F5802";
                   break;
               case 'Consulta':
-                    $color="#FE6E2A";
+                    $color="#F0F718";
               }
           ?>
             {

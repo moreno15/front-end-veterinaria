@@ -8,11 +8,12 @@
 
              <div class="row">
                <div class="col-md-12">
-                 <table class="table dt-citas "  style="width:100%">
+                 <table class="table dt-citas table-responsive  dt-responsive "  style="width:100%">
                    <thead>
                      <th>#</th>
                      <th>accion</th>
                      <th>Cliente</th>
+                     <th>Correo</th>
                      <th>Telefono</th>
                      <th>Paciente</th>
                      <th>Servicio</th>

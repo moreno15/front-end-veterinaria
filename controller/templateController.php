@@ -1,6 +1,10 @@
 <?php
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+
 
 class TemplateController{
 
@@ -19,7 +23,7 @@ class TemplateController{
 
 	static public function path(){
 
-		return "http://sancritobal.com/";
+		return "http://clinicasancristobal.com/";
 
 	}
 
@@ -36,54 +40,7 @@ class TemplateController{
 		return ucwords($text);
 	}
 
-
-		/*=============================================
-		Función para enviar correos electrónicos
-		=============================================*/
-
-		static public function sendEmail($name, $subject, $email, $message, $url){
-
-			date_default_timezone_set("America/Lima");
-
-			$mail = new PHPMailer;
-
-			$mail->Charset = "UTF-8";
-
-			$mail->isMail();
-
-			$mail->setFrom("support@sacristobal.com", "Clinica San Cristobal Support");
-
-			$mail->Subject = "Hi ".$name." - ".$subject;
-
-			$mail->addAddress($email);
-
-			$mail->msgHTML('
-
-				<div>
-
-					Hi, '.$name.':
-
-					<p>'.$message.'</p>
-
-					<a href="'.$url.'"> Verificar cuenta
-
-				</div>
-
-			');
-
-			$send = $mail->Send();
-
-			if(!$send){
-
-				return $mail->ErrorInfo;
-
-			}else{
-
-				return "ok";
-
-			}
-
-		}
+ 
 
 		/*=============================================
 		Función para almacenar imágenes

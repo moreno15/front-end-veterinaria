@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gestionar Citas
+            <h1>Gestionar Citas Pendientes (Enviar mensaje)
              </h1>
 
           </div>
@@ -47,6 +47,8 @@
 
 
     </section>
+
+    <?php   include 'md-refresh.php'; ?>
 
     <!-- /.content -->
   </div>

@@ -64,13 +64,14 @@ class DataTableController{
 
  							if(!empty($_POST['search']['value'])){
 
- 									$linkTo = [ 'nombre_cliente','apellido_cliente','dni_cliente'];
+ 									$linkTo = [ 'nombre_cliente','apellido_cliente','telefono_cliente','direccion_cliente','dni_cliente','email_cliente'];
+
 
  									$search = str_replace(" ", "_", $_POST['search']['value']);
 
  									foreach ($linkTo as $key => $value) {
 
- 										 $url = CurlController::api()."cliente?linkTo=apellido_cliente&search=".$search."&select=*";
+ 										 $url = CurlController::api()."cliente?linkTo=".$value."&search=".$search."&select=*";
 
  										 $searchTable = CurlController::request($url, $method, $fields, $header)->results;
 
@@ -453,7 +454,7 @@ class DataTableController{
 							 Actions
 							 =============================================*/
 							 $cliente=$dataCliente[0]->nombre_cliente." ".$dataCliente[0]->apellido_cliente;
-							 $paciente="'".trim($value->id_citas)."-". trim($value->id_paciente)."-".$dataPaciente[0]->nombre_paciente."-".$cliente."-".$dataHistoria[0]->numero_historia."'";
+							 $paciente="'".trim($value->id_citas)."-". trim($value->id_paciente)."-".$dataPaciente[0]->nombre_paciente."-".$cliente."-".$dataHistoria[0]->id_historia."'";
 
 							 $actions = '<div class="btn-group">
 
@@ -520,7 +521,7 @@ class DataTableController{
 
 										$select = "id_citas";
 
-										$url = CurlController::api()."citas?select=".$select ."&linkTo=estado&equalTo=0";
+										$url = CurlController::api()."citas?select=".$select."&linkTo=estado&equalTo=0";
 
 										$method = "GET";
 									 $fields = array();
@@ -550,7 +551,7 @@ class DataTableController{
 										Cuando se usa el buscador de DataTable
 										=============================================*/
 
-										$url = CurlController::api()."citas?orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length."&select=*&linkTo=estado&equalTo=0" ;
+										$url = CurlController::api()."citas?orderBy=".$orderBy."&orderMode=".$orderType."&startAt=".$start."&endAt=".$length."&select=*&linkTo=estado&equalTo=0" ;//
 										$dataTable = CurlController::request($url, $method, $fields, $header)->results;
 										$recordsFiltered = $totalData;
 							/*=============================================
@@ -584,8 +585,16 @@ class DataTableController{
 							 /*=============================================
 							 Actions
 							 =============================================*/
+							 $fecha=date_create($value->fecha_cita);
+
+							 $fech=date_format($fecha,'d/m/Y');
+
+
 							 $cliente=$dataCliente[0]->nombre_cliente." ".$dataCliente[0]->apellido_cliente;
-							 $paciente="'".trim($value->id_citas)."-". trim($value->id_paciente)."-".$dataPaciente[0]->nombre_paciente."-".$cliente."-".$dataHistoria[0]->numero_historia."'";
+
+							 $fechaId='"'. $dataPaciente[0]->id_cliente_paciente.'-' .$fech.' ' .$value->hora_cita.'"';
+
+							 //$paciente="'".trim($value->id_citas)."-". trim($value->id_paciente)."-".$dataPaciente[0]->nombre_paciente."-".$cliente."-".$dataHistoria[0]->numero_historia."'";
 
 								$celular='"'.$dataCliente[0]->telefono_cliente."-".$value->id_citas.'"';
 							 				$actions = "<div class='btn-group'>
@@ -593,6 +602,11 @@ class DataTableController{
 							 													<a onclick='sendSMSNotificacion(".$celular.")' class='btn btn-success rounded-circle mr-2' >
 
 							 														  <i class='fa fa-fax'  ></i>
+
+							 													</a>
+																				<a onclick='enviarmensaje(".$fechaId.")' class='btn btn-warning rounded-circle mr-2' >
+
+							 														  <i class='fa fa-envelope'  ></i>
 
 							 													</a>
 
@@ -607,15 +621,22 @@ class DataTableController{
 							 									</div>";
 
 
+																//	$actions =  TemplateController::htmlClean($actions);
+																if ($value->estado!="0") {
 
-											 $fecha=date_create($value->fecha_cita);
+																	$class='badge bg-success';
+																}else{
+																	$rpt="Pendiente";
+																	$class='badge bg-danger';
+																}
 
-				               $fech=date_format($fecha,'d/m/Y');
+
 
 												 $data[]=array(
 													"id_citas"=>$value->id_citas,
 													"accion"=>  $actions,
-													"cliente"=>$cliente,
+													"cliente"=>$cliente , //" <spa class='badge ".$class."' style='width:100px'>".$rpt."</span>"
+													"correo"=>'<strong>'.$dataCliente[0]->email_cliente.'</strong>',
 													"telefono_cliente"=>$dataCliente[0]->telefono_cliente,
 													"nombre_paciente"=>$dataPaciente[0]->nombre_paciente,
 													"servicio_cita"=>$value->servicio_cita,

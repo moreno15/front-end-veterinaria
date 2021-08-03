@@ -78,6 +78,14 @@
               </p>
             </a>
         </li>
+        <!--<li class="nav-item ">
+            <a  href="<?php  echo $path.'usuario/' ?>" class="nav-link <?=$active ?> ">
+              <i class="nav-icon fa   fa-users"></i>
+              <p>
+                <strong>Usuario</strong>
+              </p>
+            </a>
+        </li>-->
         <li class="nav-item ">
             <a  href="<?php  echo $path.'cliente/' ?>" class="nav-link <?=$active ?> ">
               <i class="nav-icon fa   fa-users"></i>
@@ -114,7 +122,7 @@
                 <li class="nav-item">
                   <a href="<?php echo $path."citas/lista-citas/" ?>" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Gestionar Citas</p>
+                    <p>Citas Pendientes</p>
                   </a>
                 </li>
             </ul>

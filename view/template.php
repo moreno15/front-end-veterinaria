@@ -109,6 +109,8 @@ if(strpos($_SERVER['REQUEST_URI'], "?") == false) {
 
 						if ($urlParams[0]=="cliente") {
 							 include 'pagina/cliente/cliente.php';
+				    }else if ($urlParams[0]=="usuario") {
+	 							 include 'pagina/usuario/usuario.php';
 					 }else if($urlParams[0]=="paciente"){
 							include 'pagina/paciente/paciente.php';
 					 }else if($urlParams[0]=="citas"){

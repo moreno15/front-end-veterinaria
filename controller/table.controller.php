@@ -10,6 +10,7 @@ class TableController{
 		//date_default_timezone_set("America/Lima");
 
 				if (isset($_POST["dni_cliente"])) {
+
 					$id_cliente=$_POST["id_cliente"];
 					$dni_cliente=$_POST["dni_cliente"];
 					$nombre_cliente=$_POST["nombre_cliente"];
@@ -28,46 +29,63 @@ class TableController{
 						"email_cliente"=>$email_cliente
 
 					);
-					if (isset($id_cliente)&&!empty($id_cliente)) {
-						$url = CurlController::api()."cliente?token=prueba&nameId=id_cliente&id=".trim($id_cliente);//.$_SESSION["user"]->token_user;
-						$method = "PUT";
-					}else {
-						$url = CurlController::api()."cliente?token=prueba";//.$_SESSION["user"]->token_user;
-					 	 $method = "POST";
-					}
 
-			 	 $fields = json_encode($dataCliente);
-			 	 $header = array(
+					$url = CurlController::api()."cliente?select=*&linkTo=dni_cliente&equalTo=".trim($_POST["dni_cliente"]);
 
-			 			'Content-Type: application/json' //x-www-form-urlencoded
+					$method = "GET";
+				 $fields = array();
+				 $header = array();
 
-			 	 );
+					$resCliente = CurlController::request($url, $method, $fields, $header)->results;
+					if ($resCliente== "Not Found") {
 
-			 	 $saveData= CurlController::request($url, $method, $fields, $header);
+								if (isset($id_cliente)&&!empty($id_cliente)) {
+									$url = CurlController::api()."cliente?token=prueba&nameId=id_cliente&id=".trim($id_cliente);//.$_SESSION["user"]->token_user;
+									$method = "PUT";
+								}else {
+									$url = CurlController::api()."cliente?token=prueba";//.$_SESSION["user"]->token_user;
+								 	 $method = "POST";
+								}
 
-					if($saveData->status == 200){
+						 	 $fields = json_encode($dataCliente);
+						 	 $header = array(
 
-						echo '<script>
+						 			'Content-Type: application/json' //x-www-form-urlencoded
 
-							 fncFormatInputs();
+						 	 );
 
-							 fncSweetAlert("success", "Los datos se registraron exitozamente","");
+						 	 $saveData= CurlController::request($url, $method, $fields, $header);
 
+								if($saveData->status == 200){
 
-						 </script>';
-						 return;
+									echo '<script>
 
-					}else{
-						echo ' <script>
-						fncFormatInputs();
-						 fncSweetAlert("error", "Error no se pudo completar la operacion, intente nuevamente", "");
-						</script>';
-						return;
+										 fncFormatInputs();
 
-					}
+										 fncSweetAlert("success", "Los datos se registraron exitozamente","");
 
 
+									 </script>';
+									 return;
+
+								}else{
+									echo ' <script>
+									fncFormatInputs();
+									 fncSweetAlert("error", "Error no se pudo completar la operacion, intente nuevamente", "");
+									</script>';
+									return;
+
+								}
+				}else{
+					echo ' <script>
+					fncFormatInputs();
+					 fncSweetAlert("error", "El cliente ya esta registrado", "");
+					</script>';
+					return;
 				}
+
+
+				}//post
 
  }//funcion cliente
 
@@ -149,7 +167,7 @@ class TableController{
 
   					 );
 					 }else{
-						 $dataPaciente = array( 
+						 $dataPaciente = array(
 							 "nombre_paciente"=>$nombre_paciente,
 							 "sexo_paciente"=>$sexo_paciente,
 							 "color_paciente"=>$color_paciente,
@@ -438,10 +456,12 @@ class TableController{
 			 if (isset($_POST["id_historia"]) && !empty($_POST["id_historia"])   ) {
 				 $id_visita=trim($_POST["id_visita"]);
 
+				 //$id_citas=trim($_POST["id_citas"]);
+
 					$id_historia_consulta=trim($_POST["id_historia"]);
 	        $motivo_consulta=$_POST["motivo_consulta"];
 	        $anamnesis=$_POST["anamnesis"];
-	        $fecha_consulta=$_POST["fecha_consulta"];
+	       // $fecha_consulta=$_POST["fecha_consulta"];
 	        $examen_clinico=$_POST["examen_clinico"];
 	        $dx_presuntivo=$_POST["dx_presuntivo"];
 	        $analisis_req=$_POST["analisis_req"];
@@ -540,6 +560,8 @@ class TableController{
 
 						$saveDataEaval= CurlController::request($url, $method, $fields, $header);
 						if ($saveDataEaval->status==200) {
+
+
 							echo '<script>
 
 								fncFormatInputs();
@@ -553,7 +575,7 @@ class TableController{
 				 }else{
 					 echo ' <script>
 					 fncFormatInputs();
-						fncSweetAlert("error", "Error no se pudo completar la operacion, intente nuevamente '.$saveData->results.'", "");
+						fncSweetAlert("error", "Error no se pudo completar la operacion, intente nuevamente  ", "");
 					 </script>';
 					 return;
 

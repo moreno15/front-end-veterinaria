@@ -1,109 +1,6 @@
 <?php
 class UsersController{
 
-	/*=============================================
-	Registro de usuarios
-	=============================================*/
-
-	public function register(){
-
-		if(isset($_POST["regEmail"])){
-
-			/*=============================================
-			Validamos la sintaxis de los campos
-			=============================================*/
-
-			if(preg_match( '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/', $_POST["regFirstName"] ) &&
-			   preg_match( '/^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/', $_POST["regLastName"] ) &&
-			   preg_match( '/^[^0-9][.a-zA-Z0-9_]+([.][.a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["regEmail"] ) &&
-			     preg_match( '/^[#\\=\\$\\;\\*\\_\\?\\¿\\!\\¡\\:\\.\\,\\0-9a-zA-Z]{1,}$/', $_POST["regPassword"] )
-			){
-
-				$displayname = TemplateController::capitalize(strtolower($_POST["regFirstName"]))." ".TemplateController::capitalize(strtolower($_POST["regLastName"]));
-				$username = strtolower(explode("@",$_POST["regEmail"])[0]);
-				$email =  strtolower($_POST["regEmail"]);
-
-				$url = CurlController::api()."users?register=true&token=no";
-				$method = "POST";
-				$fields = json_encode(array(
-
-					"rol_user" => "default",
-					"displayname_user" => $displayname,
-					"username_user" => $username,
-					"email_user" => $email,
-					"password_user" => $_POST["regPassword"],
-					"method_user" => "direct",
-					"date_created_user" => date("Y-m-d")
-
-				)
-			);
-
-				$header = array(
-
-				   'Content-Type: application/json' //x-www-form-urlencoded
-				);
-
-
-				$register = CurlController::request($url, $method, $fields, $header);
-
-				if($register->status == 200){
-
-					$name = $displayname;
-					$subject = "Verify your account";
-					$email = $email;
-					$message = "We must verify your account so that you can enter our Marketplace";
-					$url = TemplateController::path()."login&".base64_encode($email);
-
-					$sendEmail = TemplateController::sendEmail($name, $subject, $email, $message, $url);
-
-					if($sendEmail == "ok"){
-
-						echo '<div class="alert alert-success">Registered user successfully, confirm your account in your email (check spam)</div>
-
-						<script>
-
-							fncFormatInputs()
-
-						</script>
-
-						';
-
-					}else{
-
-						echo '<div class="alert alert-danger">'.$sendEmail.'</div>
-
-						<script>
-
-							fncFormatInputs()
-
-						</script>
-
-						';
-
-					}
-
-				}
-
-
-			}else{
-
-				echo '<div class="alert alert-danger">Error in the syntax of the fields</div>
-
-				<script>
-
-					fncFormatInputs()
-
-				</script>
-
-				';
-
-			}
-
-
-
-		}
-
-	}
 
 	/*=============================================
 	Login de usuarios
@@ -126,12 +23,12 @@ class UsersController{
 					fncSweetAlert("loading", "", "");
 
 				</script>';
-				$crypt_pwd = crypt($_POST["loginPassword"], '$2a$07$azybxcags23425sdg23sdfhsd$');
+
 				$url = CurlController::api()."usuario?login=true&token=no";
 				$method = "POST";
 				$fields = json_encode(array(
-					"email_usuario" => $_POST["loginEmail"],
-					"password_usuario" => $_POST["loginPassword"]//$crypt_pwd
+					"email_usuario" =>"testuser@gmail.com",// $_POST["loginEmail"],
+					"password_usuario" => "1234"//$_POST["loginPassword"]
 						)
 					);
 
@@ -141,6 +38,7 @@ class UsersController{
 				);
 
 				$login = CurlController::request($url, $method, $fields, $header);
+
 
 				if($login->status == 200){
 
@@ -172,10 +70,10 @@ class UsersController{
 
 				}else{
 
-					echo '<div class="alert alert-danger">'.$login->results.'</div>
+					echo '<div class="alert alert-danger">'.$login.'</div>
 
 						<script>
-							fncSweetAlert("error", "'.$login->results.'", "");
+							fncSweetAlert("error", "'.$login.'", "");
 							fncFormatInputs()
 
 						</script>

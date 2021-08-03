@@ -32,7 +32,7 @@
               }else{
                   include 'modelo/lista-paciente.php';
                    include 'modelo/md-paciente.php';
-            }
+            } 
         }else{
 
           include 'modelo/lista-paciente.php';

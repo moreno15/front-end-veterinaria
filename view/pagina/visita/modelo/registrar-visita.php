@@ -16,6 +16,9 @@
            <label>Paciente <span style="color:red">*</span> </label>
             <div class="col-sm-12  mb-3 pl-0 ml-0">
                <div class="input-group  ">
+                 <input type="hidden" name="id_evaluacion" >
+                   <input type="hidden" readonly name="id_visita" id="id_visita" readonly  class="form-control form-control-sm">
+                 <input type="hidden" name="id_citas" id="id_citas"  class="form-control form-control-sm" >
                  <input type="hidden" readonly name="id_historia" id="id_historia" readonly class="form-control form-control-sm">
                    <input type="text" readonly name="nombre_paciente" id="nombre_paciente" class="form-control form-control-sm" required>
 
@@ -33,7 +36,7 @@
                 <input type="text" class="form-control form-control-sm" name="nombre_cliente" id="nombre_cliente" value="" readonly>
              </div>
            </div>
-           <!--<div class="col-sm-4"> 
+           <!--<div class="col-sm-4">
               <div class="form-group">
                 <label>Fecha consulta</label>
                  <input type="date" class="form-control form-control-sm" name="fecha_consulta" value="<?php echo date('Y-m-d') ?>" >

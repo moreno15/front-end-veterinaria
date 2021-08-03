@@ -21,11 +21,19 @@
     <section class="content">
       <input type="hidden" id="urlapiruc" value="<?php CurlController::apidni() ?>">
       <input type="hidden" id="path" value="<?= TemplateController::path() ?>">
+
       <input type="hidden" id="tipo" value="cliente" >
       <div class="container-fluid">
 
+         <?php
+         if (!empty($urlParams[1])) {
+            include "404.php"   ;
+         }else{
+           include "modelo/lista-cliente.php"   ;
+         }
 
-        <?php include "modelo/lista-cliente.php" ?>
+
+            ?>
 
 
       </div><!-- /.container-fluid -->

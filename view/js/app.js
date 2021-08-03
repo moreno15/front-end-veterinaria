@@ -416,6 +416,7 @@ function tableView(){
                    { "data": "id_citas" },
                    { "data": "accion", "orderable": false  },
                    { "data": "cliente", "orderable": false  },
+                   { "data": "correo"},
                    { "data": "telefono_cliente"},
                    { "data": "nombre_paciente"},
                    { "data": "servicio_cita"},
@@ -1118,6 +1119,31 @@ function validateImageJS(event, input){
     }
 
 }
+function enviarmensaje(id) {
+  fncSweetAlert("confirm","esta seguro de enviar mensaje al correo","").then(
+    function(value){
+      if (value==true) {
+
+        $('#refresch').modal('show');
+        $.ajax({
+               		 "url": $("#path").val()+"controller/enviarmensaje.php?id="+id,
+               	    type: "POST",
+               	    contentType: false,
+               	    processData: false,
+               	    success: function(rpt) {
+                        $('#refresch').modal('hide');
+                       fncSweetAlert("success",rpt,$("#path").val()+"citas/lista-citas/");
+
+               	    }
+           });
+      } //true
+    }
+
+  );
+
+
+}
+
 
 function sendSMSNotificacion(data) {
 
@@ -1127,7 +1153,7 @@ function sendSMSNotificacion(data) {
       "timeout": 0,
     };
     $.ajax(settings).done(function (response) {
-      
+
           fncSweetAlert("success",response,$("#path").val()+"citas");
            return;
 

@@ -1,5 +1,6 @@
 <?php
 $dataVisitas="";
+
 if (isset($urlParams[2])) {
   $url = CurlController::api()."consulta?select=*&linkTo=id_consulta&equalTo=".$urlParams[2] ;
 
@@ -7,6 +8,19 @@ if (isset($urlParams[2])) {
   $fields = array();
   $header = array();
   $dataVisitas= CurlController::request($url, $method, $fields, $header)->results;
+
+  if($dataVisitas=="Not Found"){
+    echo '<script>
+        fncFormatInputs();
+        window.location = "'.TemplateController::path().'visitas/";
+
+      </script>
+    ';
+
+      return;
+
+  }
+
 
   $url2 = CurlController::api()."historia?select=*&linkTo=id_historia&equalTo=".$dataVisitas[0]->id_historia_consulta ;
   $dataHistoria= CurlController::request($url2, $method, $fields, $header)->results;
@@ -21,6 +35,7 @@ if (isset($urlParams[2])) {
   $fecha=date_create($dataVisitas[0]->fecha_consulta);
   $fecha_eval=date_create($dataEvaluacion[0]->fecha_evaluacion);
 }
+
 
  ?>
  <h3>   <a  href="<?php echo $path."visitas/listado-visita" ?>" class="btn btn-outline-primary  btn-sm ml-3"> <span class="fa  fa-arrow-left"></span> ir listado Visita</a>Editar La Visita</h3>
